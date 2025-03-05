@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using EventManagement.ViewModels.ManagementUsers;
+using ReactiveUI;
 
 namespace EventManagement.ViewModels
 {
@@ -9,11 +10,15 @@ namespace EventManagement.ViewModels
         public MainWindowViewModel()
         {
             Navigation = this;
+            NavigateToMainViewEvents();
         }
 
         public ViewModelBase CurrentViewModel { get => currentViewModel; set => this.RaiseAndSetIfChanged(ref currentViewModel, value); }
         public static MainWindowViewModel Navigation { get => navigation; set => navigation = value; }
 
+        //Навигационные методы
+        public void NavigateToMainViewEvents() => CurrentViewModel = new MainViewModel();
+        public void NavigateToLogIn() => CurrentViewModel = new LogInViewModel();
 
     }
 }
