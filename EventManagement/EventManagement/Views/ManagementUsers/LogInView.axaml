@@ -6,5 +6,66 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="EventManagement.Views.ManagementUsers.LogInView"
 			 x:DataType="vm:LogInViewModel">
-  Welcome to Avalonia!
+	
+	<UserControl.Styles>
+		
+		<!--Button-->
+		<Style Selector="Button:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#207cc4"/>
+		</Style>
+		<Style Selector="Button">
+			<Setter Property="Background" Value="#45adff"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="CornerRadius" Value="8"/>
+		</Style>
+		
+		<!--TextBox-->
+		<Style Selector="TextBox">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Background" Value="#314458"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Height" Value="40"/>
+		</Style>
+		<Style Selector="TextBox:pointerover/template/Border">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+		</Style>
+		<Style Selector="TextBox:focus/template/Border">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid RowDefinitions="100, 120, 130, 130" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<TextBlock Text="Авторизация" FontWeight="Medium" Foreground="White" FontSize="38" VerticalAlignment="Center"/>
+		
+		<StackPanel Spacing="15" Width="250" Grid.Row="1">
+			<TextBox Text="{Binding Login}" Watermark="Логин"/>
+			<TextBox Text="{Binding Password}" Watermark="Пароль" PasswordChar="•"/>
+		</StackPanel>
+
+		<StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">			
+			<StackPanel>
+				<Image Source="{Binding CaptchaImage}" Width="120" Height="80"/>
+				<TextBox Text="{Binding EnterCaptchaText}" Width="100"/>
+			</StackPanel>
+
+			<StackPanel Grid.Row="3" Spacing="15" Margin="0,15">
+				<Button Command="{Binding CheckPersonalData}" Width="130" Height="55"
+					CornerRadius="8" Content="Войти" FontSize="18"
+					HorizontalAlignment="Center" HotKey="Enter"
+					IsEnabled="{Binding IsEnabledButtonEntry}"/>
+
+				<TextBlock Text="{Binding Error}" TextAlignment="Center" HorizontalAlignment="Center"
+						   Foreground="Red" Width="250" Height="50" TextWrapping="Wrap"/>
+			</StackPanel>					
+		</StackPanel>
+	</Grid>
 </UserControl>

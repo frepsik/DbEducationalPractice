@@ -10,9 +10,9 @@ namespace EventManagement.Models.Database.Queries
     internal class Get
     {
         /// <summary>
-        /// Запрос на получение всех мероприятий
+        /// Запрос на получение всех мероприятий и соответтсвующих им городам
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Список всех мероприятий</returns>
         public static List<Event>? AllEvents()
         {
             LocalFsServerContext db = new();
@@ -23,9 +23,29 @@ namespace EventManagement.Models.Database.Queries
                     .Include(p=>p.City)
                     .ToList();
             }
-            catch (Exception ex) { }
+            catch { }
             
             return events;
+        }
+
+        /// <summary>
+        /// Запрос на получение всех пользователей и сопутствующей информации
+        /// </summary>
+        /// <returns>Список всех пользователей</returns>
+        public static List<User>? AllUsers()
+        {
+            LocalFsServerContext db = new();
+            List<User>? users = null;
+            try
+            {
+                users = db.Users
+                    .Include(p=>p.Gender)
+                    .Include(p=>p.State)
+                    .ToList();
+            }
+            catch { }
+
+            return users;
         }
     }
 }
