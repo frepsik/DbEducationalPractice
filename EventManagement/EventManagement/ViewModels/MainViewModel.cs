@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using EventManagement.Models.Database;
@@ -12,9 +11,13 @@ namespace EventManagement.ViewModels
 		List<Event>? events, eventsFixed;
 		List<string> filterOptions;
 		string selectedOption;
-		public MainViewModel()
+		bool _isVisibleBackButton;
+
+        public MainViewModel()
 		{
-			Events = Get.AllEvents();
+			
+
+            Events = Get.AllEvents();
 			if(Events!=null)
 				EventsFixed = new List<Event>(Events);
 			FilterOptions = new List<string>
@@ -24,6 +27,7 @@ namespace EventManagement.ViewModels
 				"Нет сортировки"
 			};
 			SelectedOption = "Нет сортировки";
+			IsVisibleBackButton = false;
         }
 
 		public List<Event>? Events { 
@@ -46,6 +50,7 @@ namespace EventManagement.ViewModels
 		}
 
         public List<Event>? EventsFixed { get => eventsFixed; set => eventsFixed = value; }
+        public bool IsVisibleBackButton { get => _isVisibleBackButton; set => this.RaiseAndSetIfChanged(ref _isVisibleBackButton, value); }
 
         public void GoToLogIn() => MainWindowViewModel.Navigation.NavigateToLogInView();
 

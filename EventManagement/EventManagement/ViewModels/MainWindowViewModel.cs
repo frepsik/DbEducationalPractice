@@ -20,6 +20,6 @@ namespace EventManagement.ViewModels
         //Навигационные методы
         public void NavigateToMainViewEvents() => CurrentViewModel = new MainViewModel();
         public void NavigateToLogInView() => CurrentViewModel = new LogInViewModel();
-        public void NavigateToUserView(User user) => CurrentViewModel = new UserViewModel(user);
+        public void NavigateToUserView() => CurrentViewModel = new UserViewModel();
     }
 }
