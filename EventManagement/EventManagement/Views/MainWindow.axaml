@@ -7,7 +7,9 @@
         x:Class="EventManagement.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="EventManagement">
+        Title="EventManagement"
+		Background="#1C2331"
+		MinHeight="550" MinWidth="850">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,

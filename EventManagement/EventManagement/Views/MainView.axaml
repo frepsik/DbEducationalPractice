@@ -3,10 +3,90 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:EventManagement.ViewModels"
+			 xmlns:conv="using:EventManagement.Models.Resources"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="EventManagement.Views.MainView"
 			 x:DataType="vm:MainViewModel">
-	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-		<Button Command="{Binding GoToLogIn}"/>
-	</StackPanel>
+	
+	<UserControl.Resources>
+		<conv:ImageConverter x:Key="convertPath"/>
+	</UserControl.Resources>
+
+	<UserControl.Styles>
+		<!--Button-->
+		<Style Selector="Button:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#207cc4"/>
+		</Style>
+		
+		<!--ListBox-->
+		<Style Selector="ListBoxItem:selected/template/ContentPresenter">
+			<Setter Property="Background" Value="#34495e"/>
+		</Style>
+		
+		<Style Selector="ListBoxItem:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#34495e"/>
+		</Style>
+
+		<Style Selector="ListBoxItem">
+			<Setter Property="Margin" Value="30,0,30,40"/>
+			<Setter Property="Padding" Value="20,10,15,20"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="BorderThickness" Value="1"/>
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid RowDefinitions="90, *">
+		<!--up-bar-->
+		<Border Background="#34495e" Grid.Row="0" Padding="25,0,25,0">
+			<Grid ColumnDefinitions="0.2*,*,0.2*">
+				<ComboBox ItemsSource="{Binding FilterOptions}" SelectedItem="{Binding SelectedOption}"
+						  FontSize="18" CornerRadius="8" Width="200" Height="40"
+						  VerticalAlignment="Center" VerticalContentAlignment="Center">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"/>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<TextBlock Text="Мероприятия" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" FontWeight="Medium"/>
+				<Button Command="{Binding GoToLogIn}" Background="#45adff" Grid.Column="2"
+						Content="Авторизация" Foreground="White" FontSize="18"
+						CornerRadius="8"
+						Width="135" Height="40"
+						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						HorizontalAlignment="Right"/>
+			</Grid>
+		</Border>
+		
+		<!--Шаблон-->
+		<ListBox Grid.Row="1" ItemsSource="{Binding Events}" Margin="0,40,0,0" Background="#1C2331">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid ColumnDefinitions="Auto, *, 0.5*">
+						<Image Source="{Binding ImagePath, Converter={StaticResource convertPath}}" Width="150" Height="100"
+							   VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,20,0"/>
+						<StackPanel Spacing="8" VerticalAlignment="Center" Grid.Column="1">
+							<TextBlock Text="{Binding Name}" FontSize="20" TextWrapping="Wrap" FontWeight="Medium"/>
+							<StackPanel Spacing="3">
+								<TextBlock  FontSize="16" TextWrapping="Wrap">
+									<Run Text="Количество дней:"/>
+									<Run Text="{Binding Days}"/>
+								</TextBlock>
+								<TextBlock  FontSize="16" TextWrapping="Wrap">
+									<Run Text="г."/>
+									<Run Text="{Binding City.Name}"/>
+								</TextBlock>
+							</StackPanel>
+						</StackPanel>					
+						<TextBlock Text="{Binding DateEvent}" FontSize="20" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		
+	</Grid>
+	
 </UserControl>
