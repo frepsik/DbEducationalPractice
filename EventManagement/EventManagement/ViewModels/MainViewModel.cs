@@ -47,7 +47,7 @@ namespace EventManagement.ViewModels
 
         public List<Event>? EventsFixed { get => eventsFixed; set => eventsFixed = value; }
 
-        public void GoToLogIn() => MainWindowViewModel.Navigation.NavigateToLogIn();
+        public void GoToLogIn() => MainWindowViewModel.Navigation.NavigateToLogInView();
 
 		void OrderEventsBy()
 		{

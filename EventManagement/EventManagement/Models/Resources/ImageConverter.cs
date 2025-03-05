@@ -12,14 +12,28 @@ namespace EventManagement.Models.Resources
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+            Uri uri;
             if (value is string pathToImage)
-            {                
-                Uri uri = new Uri($"avares://{assemblyName}/Assets/events/{pathToImage}");
+            {      
+                string firstLetter = pathToImage.Substring(0, 1);
+
+                if (firstLetter == "p" || firstLetter == "j" || firstLetter == "m" || firstLetter == "o")
+                {
+                    uri = new Uri($"avares://{assemblyName}/Assets/{pathToImage}");
+                }
+                else if (pathToImage == string.Empty)
+                {
+                    uri = new Uri($"avares://{assemblyName}/stub.png");
+                }
+                else
+                {
+                    uri = new Uri($"avares://{assemblyName}/Assets/events/{pathToImage}");
+                }                
                 return new Bitmap(AssetLoader.Open(uri));
             }
             else
             {
-                Uri uri = new Uri($"avares://{assemblyName}/stub.png");
+                uri = new Uri($"avares://{assemblyName}/Assets/stub.png");
                 return new Bitmap(AssetLoader.Open(uri));
             }
         }

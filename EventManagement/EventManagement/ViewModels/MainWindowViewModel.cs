@@ -1,4 +1,5 @@
-﻿using EventManagement.ViewModels.ManagementUsers;
+﻿using EventManagement.Models.Database;
+using EventManagement.ViewModels.ManagementUsers;
 using ReactiveUI;
 
 namespace EventManagement.ViewModels
@@ -18,7 +19,7 @@ namespace EventManagement.ViewModels
 
         //Навигационные методы
         public void NavigateToMainViewEvents() => CurrentViewModel = new MainViewModel();
-        public void NavigateToLogIn() => CurrentViewModel = new LogInViewModel();
-
+        public void NavigateToLogInView() => CurrentViewModel = new LogInViewModel();
+        public void NavigateToUserView(User user) => CurrentViewModel = new UserViewModel(user);
     }
 }

@@ -47,7 +47,15 @@ namespace EventManagement.ViewModels.ManagementUsers
             } 
             
         }
-        public string EnterCaptchaText { get => enterCaptchaText; set => this.RaiseAndSetIfChanged(ref enterCaptchaText, value); }
+        public string EnterCaptchaText 
+        { 
+            get => enterCaptchaText;
+            set
+            {
+                Error = string.Empty;
+                this.RaiseAndSetIfChanged(ref enterCaptchaText, value);
+            }
+        }
         string CaptchaText { get; set; }
         internal CaptchaGenereate CaptchaGenerate { get; private set; }
         public Bitmap CaptchaImage { get => captchaImage; set => this.RaiseAndSetIfChanged(ref captchaImage, value); }
@@ -76,7 +84,7 @@ namespace EventManagement.ViewModels.ManagementUsers
                 {
                     if (EnterCaptchaText == CaptchaText)
                     {
-                        //MainWindowViewModel.Navigation.
+                        MainWindowViewModel.Navigation.NavigateToUserView(userAuth);
                     }
                     else
                     {
