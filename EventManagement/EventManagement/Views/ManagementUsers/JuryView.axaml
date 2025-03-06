@@ -1,0 +1,114 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:EventManagement.ViewModels.ManagementUsers"
+			 xmlns:conv="using:EventManagement.Models.Resources"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="EventManagement.Views.ManagementUsers.JuryView"
+			 x:DataType="vm:JuryViewModel">
+	
+	<UserControl.Resources>
+		<conv:ImageConverter x:Key="convertPath"/>
+		<conv:GenderConverter x:Key="convertGender"/>
+	</UserControl.Resources>
+
+	<UserControl.Styles>
+		<!--Button-->
+		<Style Selector="Button:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#207cc4"/>
+		</Style>
+
+		<!--ListBox-->
+		<Style Selector="ListBoxItem:selected/template/ContentPresenter">
+			<Setter Property="Background" Value="#34495e"/>
+		</Style>
+
+		<Style Selector="ListBoxItem:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#34495e"/>
+		</Style>
+
+		<Style Selector="ListBoxItem">
+			<Setter Property="Margin" Value="30,0,30,40"/>
+			<Setter Property="Padding" Value="35,25,35,25"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="BorderThickness" Value="1"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid RowDefinitions="90, *">
+		<!--up-bar-->
+		<Border Grid.Row="0" Background="#34495e" Padding="20,0,20,0">
+
+			<Grid ColumnDefinitions="0.1*, *">
+				<Button Command="{Binding GoToUserView}" Background="#45adff" Grid.Column="0"
+						Content="Назад" Foreground="White" FontSize="18"
+						CornerRadius="8"
+						Width="135" Height="40"
+						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						HotKey="Escape"/>
+				<TextBlock Text="Жюри" FontWeight="Medium" FontSize="30" Grid.Column="1"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			</Grid>
+		</Border>
+
+
+		<!--Шаблон-->
+		<ListBox Grid.Row="1" ItemsSource="{Binding Jury}" Margin="0,40,0,0" Background="#1C2331" >
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid ColumnDefinitions="Auto, 0.6*, 0.4*">	
+						
+						<!--Картинка и имя-->
+						<!--Тут текст перенёсся в связи с тем, что есть какая та фиксированная длина у StackPanel, научным 
+						путём выявлено, что перенос текста осуществляется толь при фиксированной ширене-->
+						<StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,15,0">
+							<StackPanel Width="170">
+								<Image Source="{Binding User.ImagePath, Converter={StaticResource convertPath}}" Width="150" Height="150"
+									 VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<StackPanel Spacing="8" VerticalAlignment="Center">
+									<TextBlock Text="{Binding User.FullName}" FontSize="16" TextWrapping="Wrap" FontWeight="Medium" />
+									<TextBlock Text="{Binding Direction.Name}" FontSize="14" TextWrapping="Wrap"/>
+								</StackPanel>
+							</StackPanel>
+							<Rectangle Width="2" Fill="Black"/>
+						</StackPanel>
+
+						<!--Персональный данные 1-->
+						<StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="12" HorizontalAlignment="Center">
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Уникальный ID: "/>
+								<Run Text="{Binding User.Id}" Foreground="#d9d9d9"/>
+							</TextBlock>
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Почта: "/>
+								<Run Text="{Binding User.Email}" Foreground="#d9d9d9"/>
+							</TextBlock>
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Номер телефона: "/>
+								<Run Text="{Binding User.Phone}" Foreground="#d9d9d9"/>
+							</TextBlock>							
+						</StackPanel>
+						
+						<!--Персональный данные 2-->
+						<StackPanel Spacing="30" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Гендер: "/>
+								<Run Text="{Binding User.Gender.Name, Converter={StaticResource convertGender}}" Foreground="#d9d9d9"/>
+							</TextBlock>
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Город: "/>
+								<Run Text="{Binding User.Country.RussianName}" Foreground="#d9d9d9"/>
+							</TextBlock>							
+						</StackPanel>
+						
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+	</Grid>
+</UserControl>

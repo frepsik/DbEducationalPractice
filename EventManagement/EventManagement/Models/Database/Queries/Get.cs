@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace EventManagement.Models.Database.Queries
             return events;
         }
 
+
         /// <summary>
         /// Запрос на получение всех пользователей и сопутствующей информации
         /// </summary>
@@ -49,6 +51,7 @@ namespace EventManagement.Models.Database.Queries
             return users;
         }
 
+
         /// <summary>
         /// Запрос на получение пользователя по токену
         /// </summary>
@@ -68,6 +71,53 @@ namespace EventManagement.Models.Database.Queries
             }
             catch { }
             return user;
+        }
+
+
+        /// <summary>
+        /// Запрос на получение определённого списка пользователей по статусу пользователя
+        /// </summary>
+        /// <param name="state">Статус пользователя</param>
+        /// <returns>Список пользователей с конкретным статусом</returns>
+        public static List<User>? UsersByState(string state)
+        {
+            LocalFsServerContext db = new();
+            List<User>? users = null;
+            try
+            {
+                users = db.Users
+                    .Include(p => p.Gender)
+                    .Include(p => p.State)
+                    .Include(p => p.Country)
+                    .Where(p=>p.State.Name == state)
+                    .ToList();
+                   
+            }
+            catch { }
+            return users;
+        }
+
+        /// <summary>
+        /// Запрос на олучение списка жури
+        /// </summary>
+        /// <returns></returns>
+        public static List<Jury>? AllJury()
+        {
+            LocalFsServerContext db = new();
+            List<Jury>? jury = null;
+            try
+            {
+                jury = db.Juries
+                    .Include(p => p.User)
+                        .ThenInclude(p => p.Country)
+                     .Include(p => p.User)
+                        .ThenInclude(p=>p.Gender)
+                    .Include(p => p.Direction)
+                    .ToList();
+
+            }
+            catch { }
+            return jury;
         }
     }
 }

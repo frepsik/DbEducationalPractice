@@ -49,5 +49,7 @@ namespace EventManagement.ViewModels
 
         public void GoToMainView() => MainWindowViewModel.Navigation.NavigateToMainViewEvents();
         public void GoToProfileView() => MainWindowViewModel.Navigation.NavigateToProfileView();
+        public void GoToJuryView() => MainWindowViewModel.Navigation.NavigateToJuryView();
+        public void GoToParticipantsView() => MainWindowViewModel.Navigation.NavigateToParticipantsView();
     }
 }
