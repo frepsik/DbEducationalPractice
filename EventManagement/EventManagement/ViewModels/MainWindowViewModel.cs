@@ -34,5 +34,6 @@ namespace EventManagement.ViewModels
         public void NavigateToEditProfileView() => CurrentViewModel = new EditProfileViewModel();
         public void NavigateToParticipantsView() => CurrentViewModel = new ParticipantsViewModel();
         public void NavigateToJuryView() => CurrentViewModel = new JuryViewModel();
+        public void NavigateToRegistrationView() => CurrentViewModel = new RegistrationViewModel();
     }
 }

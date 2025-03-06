@@ -1,0 +1,209 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:EventManagement.ViewModels.ManagementUsers"
+			 xmlns:conv="using:EventManagement.Models.Resources"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="EventManagement.Views.ManagementUsers.RegistrationView"
+			 x:DataType="vm:RegistrationViewModel">
+
+	<UserControl.Resources>
+		<conv:MaskNumberConverter x:Key="convertPhone"/>
+	</UserControl.Resources>
+	
+	
+
+	<UserControl.Styles>
+		<!--Button-->
+		<Style Selector="Button">
+			<Setter Property="Background" Value="#45adff"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="16"/>
+		</Style>
+		<Style Selector="Button:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#207cc4"/>
+		</Style>
+
+
+		<!--TextBox-->
+		<Style Selector="TextBox">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Background" Value="#314458"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Width" Value="200"/>
+			<Setter Property="Height" Value="35"/>
+		</Style>
+		<Style Selector="TextBox:pointerover/template/Border">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+		</Style>
+		<Style Selector="TextBox:focus/template/Border">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+		</Style>
+		
+		<!--ComboBox-->
+		<Style Selector="ComboBox">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="VerticalContentAlignment" Value="Bottom"/>
+			<Setter Property="Background" Value="#314458"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Width" Value="200"/>
+			<Setter Property="Height" Value="35"/>			
+		</Style>
+		
+		<Style Selector="ComboBox:pointerover/template/Border">
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>			
+		</Style>
+		
+		<Style Selector="ComboBox:focus/template/Border">
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>			
+		</Style>
+
+		<!--Здесь я могу задать задний фон у открывшегося списка--> <!--Border - отвечает в целом за общий элемен-->
+		<Style Selector="ComboBox:dropdownopen/template/Border">
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#343d46"/>
+			<Setter Property="CornerRadius" Value="8"/>
+		</Style>		
+		
+	</UserControl.Styles>
+
+	<Grid RowDefinitions="90 ,*">
+		<!--up-bar-->
+		<Border Grid.Row="0" Background="#34495e" Padding="20,0,20,0">
+			<TextBlock Text="Регистрация жюри/модератора" FontWeight="Medium" FontSize="30" Grid.Column="1"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</Border>
+	
+		<StackPanel Orientation="Horizontal" Spacing="40" Grid.Row="1" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+			<StackPanel Spacing="15">
+				<!--Id-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Уникальный Id: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<TextBox IsEnabled="False" Text="{Binding RegistrationId}"  Grid.Column="1"/>
+				</Grid>
+				
+				<!--ФИО-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="ФИО: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<TextBox Text="{Binding FullName}" Grid.Column="1"/>
+				</Grid>
+
+				<!--Гендеры-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Гендеры: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<ComboBox Grid.Column="1" ItemsSource="{Binding Genders}" SelectedItem="{Binding SelectedGender}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding }"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</Grid>
+
+				<!--Статусы-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Статусы: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<ComboBox Grid.Column="1" ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding }"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</Grid>
+				
+				<!--Страны-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Страны: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<ComboBox Grid.Column="1" ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding RussianName}"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</Grid>
+
+				<!--Почта-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Email: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<TextBox Text="{Binding Email}" Grid.Column="1"/>
+				</Grid>
+
+				<!--Телефон-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Телефон: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<MaskedTextBox Mask="+7(000)-000-00-00" 
+								   Text="{Binding Phone, Converter={StaticResource convertPhone}}" 
+								   Grid.Column="1"/>
+				</Grid>
+
+				<!--Направления-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Направления: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<ComboBox Grid.Column="1" ItemsSource="{Binding Directions}" SelectedItem="{Binding SelectedDirection}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Name}"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</Grid>
+
+				<!--Мероприятия-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Мероприятия: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<ComboBox Grid.Column="1" ItemsSource="{Binding Events}" SelectedItem="{Binding SelectedEvent}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Name}"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</Grid>
+			</StackPanel>
+
+			<StackPanel Grid.Column="1" Spacing="20">
+				<!--Пароль-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Пароль: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<TextBox Text="{Binding Password}" Grid.Column="1"/>
+				</Grid>
+
+				<!--Повтор пароля-->
+				<Grid ColumnDefinitions="150,200">
+					<TextBlock Text="Повтор пароля: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+					<TextBox Text="{Binding RePassword}" Grid.Column="1"/>
+				</Grid>
+
+				<!--Галочка на видимость пароля-->
+				<Grid ColumnDefinitions="150,200">
+					<CheckBox HorizontalAlignment="Right" Classes="personal"/>
+					<TextBlock Text="Видимый пароль" FontSize="18" VerticalAlignment="Center"  Margin="10,0,0,0" Grid.Column="1"/>					
+				</Grid>
+			</StackPanel>
+		</StackPanel>
+		
+	</Grid>
+</UserControl>

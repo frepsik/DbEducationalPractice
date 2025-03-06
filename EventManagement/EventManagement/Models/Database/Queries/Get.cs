@@ -119,5 +119,39 @@ namespace EventManagement.Models.Database.Queries
             catch { }
             return jury;
         }
+
+        /// <summary>
+        /// Запрос на получение всех стран
+        /// </summary>
+        /// <returns></returns>
+        public static List<Country>? AllCountry()
+        {
+            LocalFsServerContext db = new();
+            List<Country>? countries = null;
+            try
+            {
+                countries = db.Countries.ToList();
+            }
+            catch { }
+
+            return countries;
+        }
+
+        /// <summary>
+        /// Запрос на получение всех направлений для жюри и модератора
+        /// </summary>
+        /// <returns></returns>
+        public static List<Direction>? AllDirections()
+        {
+            LocalFsServerContext db = new();
+            List<Direction>? directions = null;
+            try
+            {
+                directions = db.Directions.ToList();
+            }
+            catch { }
+
+            return directions;
+        }
     }
 }
