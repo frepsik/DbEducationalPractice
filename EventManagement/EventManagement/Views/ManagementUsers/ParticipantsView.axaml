@@ -7,8 +7,106 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="EventManagement.Views.ManagementUsers.ParticipantsView"
 			 x:DataType="vm:ParticipantsViewModel">
+	
+	
 	<UserControl.Resources>
 		<conv:ImageConverter x:Key="convertPath"/>
+		<conv:GenderConverter x:Key="convertGender"/>
 	</UserControl.Resources>
-  Welcome to Avalonia!
+
+	<UserControl.Styles>
+		<!--Button-->
+		<Style Selector="Button:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#207cc4"/>
+		</Style>
+
+		<!--ListBox-->
+		<Style Selector="ListBoxItem:selected/template/ContentPresenter">
+			<Setter Property="Background" Value="#34495e"/>
+		</Style>
+
+		<Style Selector="ListBoxItem:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#34495e"/>
+		</Style>
+
+		<Style Selector="ListBoxItem">
+			<Setter Property="Margin" Value="30,0,30,40"/>
+			<Setter Property="Padding" Value="35,25,35,25"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="BorderThickness" Value="1"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid RowDefinitions="90, *">
+		<!--up-bar-->
+		<Border Grid.Row="0" Background="#34495e" Padding="20,0,20,0">
+
+			<Grid ColumnDefinitions="0.1*, *">
+				<Button Command="{Binding GoToUserView}" Background="#45adff" Grid.Column="0"
+						Content="Назад" Foreground="White" FontSize="18"
+						CornerRadius="8"
+						Width="135" Height="40"
+						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						HotKey="Escape"/>
+				<TextBlock Text="Участники" FontWeight="Medium" FontSize="30" Grid.Column="1"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			</Grid>
+		</Border>
+
+
+		<!--Шаблон-->
+		<ListBox Grid.Row="1" ItemsSource="{Binding Participants}" Margin="0,40,0,0" Background="#1C2331" >
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid ColumnDefinitions="Auto, 0.6*, 0.4*">
+
+						<!--Картинка и имя-->
+						<!--Тут текст перенёсся в связи с тем, что есть какая та фиксированная длина у StackPanel, научным 
+						путём выявлено, что перенос текста осуществляется толь при фиксированной ширене-->
+						<StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,15,0">
+							<StackPanel Width="170" Spacing="8" VerticalAlignment="Center">
+								<Image Source="{Binding ImagePath, Converter={StaticResource convertPath}}" Width="150" Height="150"
+									 VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<TextBlock Text="{Binding FullName}" FontSize="16" TextWrapping="Wrap" FontWeight="Medium" />
+							</StackPanel>
+							<Rectangle Width="2" Fill="Black"/>
+						</StackPanel>
+
+						<!--Персональный данные 1-->
+						<StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="12" HorizontalAlignment="Center">
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Уникальный ID: "/>
+								<Run Text="{Binding Id}" Foreground="#d9d9d9"/>
+							</TextBlock>
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Почта: "/>
+								<Run Text="{Binding Email}" Foreground="#d9d9d9"/>
+							</TextBlock>
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Номер телефона: "/>
+								<Run Text="{Binding Phone}" Foreground="#d9d9d9"/>
+							</TextBlock>
+						</StackPanel>
+
+						<!--Персональный данные 2-->
+						<StackPanel Spacing="30" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Гендер: "/>
+								<Run Text="{Binding Gender.Name, Converter={StaticResource convertGender}}" Foreground="#d9d9d9"/>
+							</TextBlock>
+							<TextBlock FontSize="18" TextWrapping="Wrap">
+								<Run Text="Страна: "/>
+								<Run Text="{Binding Country.RussianName}" Foreground="#d9d9d9"/>
+							</TextBlock>
+						</StackPanel>
+
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
+	
 </UserControl>

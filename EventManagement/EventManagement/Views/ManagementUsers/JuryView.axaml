@@ -100,7 +100,7 @@
 								<Run Text="{Binding User.Gender.Name, Converter={StaticResource convertGender}}" Foreground="#d9d9d9"/>
 							</TextBlock>
 							<TextBlock FontSize="18" TextWrapping="Wrap">
-								<Run Text="Город: "/>
+								<Run Text="Страна: "/>
 								<Run Text="{Binding User.Country.RussianName}" Foreground="#d9d9d9"/>
 							</TextBlock>							
 						</StackPanel>
