@@ -87,7 +87,7 @@ namespace EventManagement.ViewModels.ManagementUsers
                     {
                         //ƒобавл€ем пользовател€ на врем€ работы системы
                         AuthorizedUser.UserInstance.EditPersonalDataUser(userAuth);
-
+                        AuthorizedUser.UserInstance.SaveData();
                         MainWindowViewModel.Navigation.NavigateToUserView();
                     }
                     else

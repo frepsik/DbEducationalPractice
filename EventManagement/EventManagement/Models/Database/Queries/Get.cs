@@ -48,5 +48,26 @@ namespace EventManagement.Models.Database.Queries
 
             return users;
         }
+
+        /// <summary>
+        /// Запрос на получение пользователя по токену
+        /// </summary>
+        /// <param name="token">Токен пользователя</param>
+        /// <returns></returns>
+        public static User? UserByToken(string token)
+        {
+            LocalFsServerContext db = new();
+            User? user = null;
+            try
+            {
+                user = db.Users
+                    .Include(p => p.Gender)
+                    .Include(p => p.State)
+                    .Include(p => p.Country)
+                    .FirstOrDefault(p => p.Id.ToString() == token);
+            }
+            catch { }
+            return user;
+        }
     }
 }

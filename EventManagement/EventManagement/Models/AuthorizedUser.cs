@@ -1,4 +1,5 @@
 ﻿using EventManagement.Models.Database;
+using EventManagement.Models.Database.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,33 @@ namespace EventManagement.Models
             else
                 Data.Gender.Name = "Женский";
         }
-        public void DeleteUser() => Data = null;
+
+
+        public void SaveData()
+        {
+            ConservationDataAuthorizedUser
+                .ConservationData(Data.Id.ToString());               
+        }
+
+        public bool LoadUser()
+        {
+            string? token = ConservationDataAuthorizedUser.LoadUser();
+            if (!string.IsNullOrEmpty(token))
+            {
+                User? user = Get.UserByToken(token);
+                if (user != null)
+                {
+                    EditPersonalDataUser(user);
+                    return true;
+                }               
+            }
+            return false;
+        }
+
+        public void DeleteUser()
+        {
+            Data = null;
+            ConservationDataAuthorizedUser.DeleteData();
+        }
     }
 }
