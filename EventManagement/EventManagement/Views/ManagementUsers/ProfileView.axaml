@@ -60,7 +60,7 @@
 						</StackPanel>
 					</StackPanel>
 					<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8" Grid.Row="1"  Margin="0,80,0,0">
-						<Button Content="Редактировать" Width="150" Height="50"/>
+						<Button Content="Редактировать" Width="150" Height="50" Command="{Binding GoToEditProfileView}"/>
 						<Button Content="Выйти" Background="Transparent" Foreground="Red" Width="150" Height="50" Classes="Exit" Command="{Binding GoExitProfile}"/>
 					</StackPanel>
 				</Grid>

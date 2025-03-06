@@ -23,5 +23,7 @@ namespace EventManagement.ViewModels.ManagementUsers
 			AuthorizedUser.UserInstance.DeleteUser();
             MainWindowViewModel.Navigation.NavigateToMainViewEvents();
         }
+
+		public void GoToEditProfileView() => MainWindowViewModel.Navigation.NavigateToEditProfileView();
     }
 }

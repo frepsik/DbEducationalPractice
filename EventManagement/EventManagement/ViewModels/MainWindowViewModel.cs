@@ -12,6 +12,7 @@ namespace EventManagement.ViewModels
         public MainWindowViewModel()
         {
             Navigation = this;
+            //Проверяем, сохранён ли пользователь в системе (авторизовывался ранее или нет)
             if (AuthorizedUser.UserInstance.LoadUser())
             {
                 NavigateToUserView();
@@ -30,5 +31,6 @@ namespace EventManagement.ViewModels
         public void NavigateToLogInView() => CurrentViewModel = new LogInViewModel();
         public void NavigateToUserView() => CurrentViewModel = new UserViewModel();
         public void NavigateToProfileView() => CurrentViewModel = new ProfileViewModel();
+        public void NavigateToEditProfileView() => CurrentViewModel = new EditProfileViewModel();
     }
 }

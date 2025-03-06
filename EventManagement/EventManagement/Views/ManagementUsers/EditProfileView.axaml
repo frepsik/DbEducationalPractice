@@ -1,0 +1,102 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm ="using:EventManagement.ViewModels.ManagementUsers"
+			 xmlns:conv="using:EventManagement.Models.Resources"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="EventManagement.Views.ManagementUsers.EditProfileView"
+			 x:DataType="vm:EditProfileViewModel">
+
+	<UserControl.Resources>
+		<conv:MaskNumberConverter x:Key="convertPhone"/>
+		<conv:ConvertMessageToColorConverter x:Key="convertMessageToColor"/>
+	</UserControl.Resources>
+
+	<UserControl.Styles>
+		<!--Button-->
+		<Style Selector="Button">
+			<Setter Property="Background" Value="#45adff"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>			
+			<Setter Property="FontSize" Value="16"/>
+		</Style>
+		<Style Selector="Button:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#207cc4"/>
+		</Style>
+
+
+		<!--TextBox-->
+		<Style Selector="TextBox">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Background" Value="#314458"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Width" Value="350"/>
+			<Setter Property="Height" Value="45"/>
+		</Style>
+		<Style Selector="TextBox:pointerover/template/Border">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+		</Style>
+		<Style Selector="TextBox:focus/template/Border">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="Background" Value="#34495e"/>
+			<Setter Property="CornerRadius" Value="8"/>
+		</Style>
+		
+	</UserControl.Styles>
+
+	<Grid RowDefinitions="90,*, 0.4*">
+		<!--Up-bar-->
+		<Border Grid.Row="0" Background="#34495e" Padding="20,0,20,0">
+
+			<Grid ColumnDefinitions="0.1*, *">
+				<Button Command="{Binding GoToProfileView}" Background="#45adff" Grid.Column="0"
+						Content="Назад" Foreground="White" FontSize="18"
+						CornerRadius="8"
+						Width="135" Height="40"
+						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						HotKey="Escape"/>
+				<TextBlock Text="Редактирование профиля" FontWeight="Medium" FontSize="30" Grid.Column="1"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			</Grid>
+		</Border>
+
+		<StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="35" Margin="0,30,0,0">
+			<StackPanel Spacing="25">
+				
+				<!--Почта-->
+				<StackPanel>
+					<TextBlock Text="Почта" Foreground="#d9d9d9" FontSize="16" Margin="5,0,0,0"/>
+					<TextBox Text="{Binding Email}"/>
+				</StackPanel>
+
+				<!--Пароль-->
+				<StackPanel>
+					<TextBlock Text="Пароль" Foreground="#d9d9d9" FontSize="16" Margin="5,0,0,0"/>
+					<TextBox Text="{Binding Password}"/>
+				</StackPanel>
+
+				<!--Телефон-->
+				<StackPanel>
+					<TextBlock Text="Номер телефона" Foreground="#d9d9d9" FontSize="16" Margin="5,0,0,0"/>
+					<!--<TextBox Text="{Binding Phone}"/>-->
+					<MaskedTextBox Mask="+7(000)-000-00-00" Text="{Binding Phone, Converter={StaticResource convertPhone}}"/>
+				</StackPanel>
+			</StackPanel>		
+		</StackPanel>
+		<StackPanel Spacing="13" Grid.Row="2" VerticalAlignment="Top">
+			<Button Content="Сохранить" Width="150" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center"
+					Command="{Binding EditProfile}"/>
+			<TextBlock Text="{Binding Message}" Foreground="{Binding Message, Converter={StaticResource convertMessageToColor}}"
+					   VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+		</StackPanel>
+	</Grid>
+	
+</UserControl>
