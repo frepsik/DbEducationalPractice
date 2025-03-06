@@ -37,13 +37,13 @@
 		</Border>
 		
 		<!--Приветствие пользователя-->
-		<StackPanel Spacing="5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+		<StackPanel Spacing="5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,30,10,30">
 			<TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<Run Text="{Binding PeriodDay}"/>
 			</TextBlock>
 			<TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<Run Text="{Binding Gender}"/>
-				<Run Text="{Binding AuthorizedUser.FullName}"/>
+				<Run Text="{Binding _AuthorizedUser.FullName}"/>
 			</TextBlock>
 		</StackPanel>
 
@@ -52,7 +52,7 @@
 			<StackPanel Spacing="40" HorizontalAlignment="Center" >				
 				<Border Background="#34495e" CornerRadius="8" Padding="10"
 						BorderBrush="Black" BorderThickness="1">
-					<Image Source="{Binding AuthorizedUser.ImagePath, Converter={StaticResource convertPath}}"
+					<Image Source="{Binding _AuthorizedUser.ImagePath, Converter={StaticResource convertPath}}"
 					   Width="180" Height="200"/>
 				</Border>
 				<StackPanel Spacing="15">
@@ -61,7 +61,7 @@
 							Foreground="White" FontSize="16"
 							Width="180" Height="45"
 							HorizontalContentAlignment="Center"
-							HorizontalAlignment="Center" IsVisible="{Binding IsVisible}">
+							HorizontalAlignment="Center" IsVisible="{Binding IsVisibleJury}">
 						<TextBlock Text="Зарегистрировать"
 								   TextWrapping="Wrap" TextAlignment="Center"/>
 					</Button>
@@ -69,10 +69,10 @@
 			</StackPanel>
 			
 			<!--Правая сторона-->
-			<StackPanel Spacing="20" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,190,0">
-				<Button Content="Мероприятия" Width="200" Height="100" HorizontalAlignment="Center"/>
-				<Button Content="Участники" Width="200" Height="100" HorizontalAlignment="Center" IsVisible="{Binding IsVisible}"/>
-				<Button Content="Жюри" Width="200" Height="100" HorizontalAlignment="Center" IsVisible="{Binding IsVisible}"/>
+			<StackPanel Spacing="20" Grid.Column="1" HorizontalAlignment="Center">
+				<Button Content="Мероприятия" Width="380" Height="100" HorizontalAlignment="Center" Command="{Binding GoToMainView}"/>
+				<Button Content="Участники" Width="380" Height="100" HorizontalAlignment="Center" IsVisible="{Binding IsVisibleParticipants}"/>
+				<Button Content="Жюри" Width="380" Height="100" HorizontalAlignment="Center" IsVisible="{Binding IsVisibleJury}"/>
 			</StackPanel>		
 		</Grid>
 	</Grid>		

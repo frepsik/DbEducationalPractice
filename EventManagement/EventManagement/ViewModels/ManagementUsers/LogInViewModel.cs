@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
+using EventManagement.Models;
 using EventManagement.Models.Captcha;
 using EventManagement.Models.Database;
 using EventManagement.Models.Database.Queries;
@@ -84,7 +85,10 @@ namespace EventManagement.ViewModels.ManagementUsers
                 {
                     if (EnterCaptchaText == CaptchaText)
                     {
-                        MainWindowViewModel.Navigation.NavigateToUserView(userAuth);
+                        //ƒобавл€ем пользовател€ на врем€ работы системы
+                        AuthorizedUser.UserInstance.EditPersonalDataUser(userAuth);
+
+                        MainWindowViewModel.Navigation.NavigateToUserView();
                     }
                     else
                     {
