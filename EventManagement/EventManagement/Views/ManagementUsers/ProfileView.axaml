@@ -1,0 +1,144 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:EventManagement.ViewModels.ManagementUsers"
+			 xmlns:conv="using:EventManagement.Models.Resources"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="EventManagement.Views.ManagementUsers.ProfileView"
+			 x:DataType="vm:ProfileViewModel">
+	
+	<UserControl.Resources>
+		<conv:ImageConverter x:Key="convertPath"/>
+	</UserControl.Resources>
+
+	<UserControl.Styles>
+		<!--Button-->
+		<Style Selector="Button">
+			<Setter Property="Background" Value="#45adff"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="16"/>
+		</Style>
+		<Style Selector="Button:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="#207cc4"/>
+		</Style>
+		<Style Selector="Button.Exit:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Foreground" Value="#ad1d07"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid RowDefinitions="90,*">
+		<!--Up-bar-->
+		<Border Grid.Row="0" Background="#34495e" Padding="20,0,20,0">
+
+			<Grid ColumnDefinitions="0.1*, *">
+				<Button Command="{Binding GoToUserView}" Background="#45adff" Grid.Column="0"
+						Content="Назад" Foreground="White" FontSize="18"
+						CornerRadius="8"
+						Width="135" Height="40"
+						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						HotKey="Escape"/>
+				<TextBlock Text="Профиль" FontWeight="Medium" FontSize="38" Grid.Column="1"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			</Grid>
+		</Border>
+		
+		<Grid Grid.Row="1" ColumnDefinitions="280,*" Margin="30">
+			<!--Карточка профиля-->
+			<Border Grid.Column="0" Background="#34495e" CornerRadius="8" BorderBrush="Black" BorderThickness="1">
+				<Grid RowDefinitions="200, *">
+					<StackPanel Grid.Row="0" Spacing="10">
+						<Image Source="{Binding User.ImagePath, Converter={StaticResource convertPath}}"
+						   Width="200" Height="180"/>
+						<StackPanel Spacing="5">
+							<TextBlock Text="{Binding User.FullName}" FontSize="20" FontWeight="Medium" TextAlignment="Center" TextWrapping="Wrap" Padding="5"/>
+							<TextBlock Text="{Binding User.State.Name}" FontSize="18" Foreground="#d9d9d9" TextAlignment="Center" TextWrapping="Wrap"/>
+						</StackPanel>
+					</StackPanel>
+					<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8" Grid.Row="1"  Margin="0,80,0,0">
+						<Button Content="Редактировать" Width="150" Height="50"/>
+						<Button Content="Выйти" Background="Transparent" Foreground="Red" Width="150" Height="50" Classes="Exit" Command="{Binding GoExitProfile}"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+			
+			<!--Данные пользователя-->
+			<Border Grid.Column="1" Background="#34495e" Margin="60,0,0,0" CornerRadius="8" BorderBrush="Black" BorderThickness="1" Padding="25"
+					HorizontalAlignment="Stretch">
+				<StackPanel Spacing="15">
+
+					<!-- Уникальный код -->
+					<Grid ColumnDefinitions="0.6*,*" VerticalAlignment="Center">
+						<TextBlock Text="Уникальный код" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16"/>
+						<TextBlock Text="{Binding User.Id}" Foreground="#d9d9d9" Grid.Column="1" FontSize="16"
+								   TextAlignment="Right" TextWrapping="Wrap" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+					</Grid>
+
+					<!-- Почта -->
+					<StackPanel Spacing="10" VerticalAlignment="Center">
+						<Rectangle Height="2" Fill="Black"/>
+						<Grid ColumnDefinitions="0.6*,*" >
+							<TextBlock Text="Почта" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16"/>
+							<TextBlock Text="{Binding User.Email}" Foreground="#d9d9d9" Grid.Column="1" FontSize="16"
+									   TextAlignment="Right" TextWrapping="Wrap" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+						</Grid>
+					</StackPanel>
+
+					<!-- Телефон -->
+					<StackPanel Spacing="10">
+						<Rectangle Height="2" Fill="Black" />
+						<Grid ColumnDefinitions="0.6*,*" >
+							<TextBlock Text="Телефон" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16"/>
+							<TextBlock Text="{Binding User.Phone}" Foreground="#d9d9d9" Grid.Column="1" FontSize="16"
+									   TextAlignment="Right" TextWrapping="Wrap" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+						</Grid>
+					</StackPanel>
+
+					<!-- Пароль -->
+					<StackPanel Spacing="10">
+						<Rectangle Height="2" Fill="Black"/>
+						<Grid ColumnDefinitions="0.6*,*" >
+							<TextBlock Text="Пароль" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16"/>
+							<TextBlock Text="{Binding User.Password}" Foreground="#d9d9d9" Grid.Column="1" FontSize="16"
+									   TextAlignment="Right" TextWrapping="Wrap" HorizontalAlignment="Right"  VerticalAlignment="Center" />
+						</Grid>
+					</StackPanel>
+
+					<!-- Страна -->
+					<StackPanel Spacing="10">
+						<Rectangle Height="2" Fill="Black" />
+						<Grid ColumnDefinitions="0.6*,*" >
+							<TextBlock Text="Страна" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16"/>
+							<TextBlock Text="{Binding User.Country.RussianName}" Foreground="#d9d9d9" Grid.Column="1" FontSize="16"
+									   TextAlignment="Right" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Center" />
+						</Grid>
+					</StackPanel>
+					
+					<!-- Гендер -->
+					<StackPanel Spacing="10">
+						<Rectangle Height="2" Fill="Black" />
+						<Grid ColumnDefinitions="0.6*,*" >
+							<TextBlock Text="Гендер" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16"/>
+							<TextBlock Text="{Binding User.Gender.Name}" Foreground="#d9d9d9" Grid.Column="1" FontSize="16"
+									   TextAlignment="Right" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Center" />
+						</Grid>
+					</StackPanel>
+
+					<!-- День рождения -->
+					<StackPanel Spacing="10">
+						<Rectangle Height="2" Fill="Black" />
+						<Grid ColumnDefinitions="0.6*,*" >
+							<TextBlock Text="Дата рождения" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16"/>
+							<TextBlock Text="{Binding User.Birthday}" Foreground="#d9d9d9" Grid.Column="1" FontSize="16"
+									   TextAlignment="Right" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Center" />
+						</Grid>
+					</StackPanel>
+				</StackPanel>			
+			</Border>			
+		</Grid>
+	</Grid>
+</UserControl>

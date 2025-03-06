@@ -41,6 +41,7 @@ namespace EventManagement.Models.Database.Queries
                 users = db.Users
                     .Include(p=>p.Gender)
                     .Include(p=>p.State)
+                    .Include(p => p.Country)
                     .ToList();
             }
             catch { }

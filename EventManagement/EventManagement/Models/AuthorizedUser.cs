@@ -39,7 +39,11 @@ namespace EventManagement.Models
                 Jury = user.Jury,
                 Moderator = user.Moderator,
                 State = user.State
-            };            
+            };
+            if (Data.Gender.Name == "м")
+                Data.Gender.Name = "Мужской";
+            else
+                Data.Gender.Name = "Женский";
         }
         public void DeleteUser() => Data = null;
     }

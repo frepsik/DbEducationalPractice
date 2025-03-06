@@ -21,5 +21,6 @@ namespace EventManagement.ViewModels
         public void NavigateToMainViewEvents() => CurrentViewModel = new MainViewModel();
         public void NavigateToLogInView() => CurrentViewModel = new LogInViewModel();
         public void NavigateToUserView() => CurrentViewModel = new UserViewModel();
+        public void NavigateToProfileView() => CurrentViewModel = new ProfileViewModel();
     }
 }

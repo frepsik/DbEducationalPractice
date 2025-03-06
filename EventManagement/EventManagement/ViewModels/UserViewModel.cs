@@ -48,5 +48,6 @@ namespace EventManagement.ViewModels
         public bool IsVisibleJury { get => isVisibleJury; set => this.RaiseAndSetIfChanged(ref isVisibleJury, value); }
 
         public void GoToMainView() => MainWindowViewModel.Navigation.NavigateToMainViewEvents();
+        public void GoToProfileView() => MainWindowViewModel.Navigation.NavigateToProfileView();
     }
 }

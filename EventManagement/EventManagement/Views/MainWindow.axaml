@@ -9,7 +9,7 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="EventManagement"
 		Background="#1C2331"
-		MinHeight="650" MinWidth="900">
+		MinHeight="670" MinWidth="900">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,

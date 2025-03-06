@@ -92,7 +92,8 @@ namespace EventManagement.ViewModels.ManagementUsers
                     }
                     else
                     {
-                        Error = "Неверно ведено значение CAPTCHA. Повторите попытку";
+                        EnterCaptchaText = string.Empty;
+                        Error = "Неверно ведено значение CAPTCHA. Повторите попытку";                       
                         GenerateNewCaptcha();
                         return;
                     }
@@ -109,7 +110,7 @@ namespace EventManagement.ViewModels.ManagementUsers
                             Error = $"Повторите попытку через {i} секунд";
                             await Task.Delay(1000);
                         }
-                        Error = string.Empty;
+                        EnterCaptchaText = string.Empty;
                         IsEnabledButtonEntry = true;
                     }
                     else

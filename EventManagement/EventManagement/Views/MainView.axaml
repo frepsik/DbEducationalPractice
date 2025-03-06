@@ -57,13 +57,13 @@
 						CornerRadius="8"
 						Width="135" Height="40"
 						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-						HorizontalAlignment="Right" IsVisible="{Binding IsVisibleButtonAuthorize}"/>
+						HorizontalAlignment="Right" IsVisible="{Binding IsVisibleButtonAuthorize}" IsEnabled="{Binding IsVisibleButtonAuthorize}"/>
 				<Button Command="{Binding GoToUserView}" Background="#45adff" Grid.Column="2"
 						Content="Назад" Foreground="White" FontSize="18"
 						CornerRadius="8"
 						Width="135" Height="40"
 						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-						HorizontalAlignment="Right" IsVisible="{Binding IsVisibleBackButton}" HotKey="Escape"/>
+						HorizontalAlignment="Right" IsVisible="{Binding IsVisibleBackButton}" HotKey="Escape" IsEnabled="{Binding IsVisibleBackButton}"/>
 			</Grid>
 		</Border>
 		
