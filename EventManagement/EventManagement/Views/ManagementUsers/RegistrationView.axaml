@@ -238,7 +238,7 @@
 				</StackPanel>
 				
 				<TextBlock Text="{Binding Message}" Foreground="{Binding Message, Converter={StaticResource convertMessageToColor}}" 
-						   TextWrapping="Wrap" Width="180" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+						   TextWrapping="Wrap" Width="180" Height="90" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 			</StackPanel>			
 		</StackPanel>
 		
