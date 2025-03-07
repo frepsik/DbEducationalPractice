@@ -150,7 +150,6 @@ namespace EventManagement.ViewModels.ManagementUsers
         /// <summary>
         /// Проверка на корректность шаблона почты
         /// </summary>
-        /// <param name="email"></param>
         /// <returns></returns>
         bool IsEmailValid()
         {
@@ -308,26 +307,30 @@ namespace EventManagement.ViewModels.ManagementUsers
         /// <exception cref="NullReferenceException"></exception>
         public async Task SelectImageAsync()
         {
-            if(Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop ||
+            try
+            {
+                if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop ||
                 desktop.MainWindow?.StorageProvider is not { } provider) throw new NullReferenceException("Отсутствует провайдер");
 
-            var files = await provider.OpenFilePickerAsync(
-                new FilePickerOpenOptions()
-                {
-                    Title = "Выберите изображение профиля",
-                    AllowMultiple = false,
-                    FileTypeFilter = [FilePickerFileTypes.ImageAll]
-                });
+                var files = await provider.OpenFilePickerAsync(
+                    new FilePickerOpenOptions()
+                    {
+                        Title = "Выберите изображение профиля",
+                        AllowMultiple = false,
+                        FileTypeFilter = [FilePickerFileTypes.ImageAll]
+                    });
 
-            if (files is null || files.Count == 0)
-                return;
+                if (files is null || files.Count == 0)
+                    return;
 
-            SelectedFile = files[0]; 
+                SelectedFile = files[0];
 
-            Uri fileUri = SelectedFile.Path;                   
-            string pathFile = fileUri.LocalPath;
+                Uri fileUri = SelectedFile.Path;
+                string pathFile = fileUri.LocalPath;
 
-            SelectedImage = new Bitmap(pathFile);
+                SelectedImage = new Bitmap(pathFile);
+            }
+            catch { }            
         }
 
         //Сохранение картинки в каталог конкретного пользователя

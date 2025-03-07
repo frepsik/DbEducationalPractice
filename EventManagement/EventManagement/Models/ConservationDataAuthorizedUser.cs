@@ -11,8 +11,7 @@ using Tmds.DBus.Protocol;
 namespace EventManagement.Models
 {
     internal class ConservationDataAuthorizedUser
-    {       
-
+    {     
         static string GetFilePath()
         {
             //Получаем путь к папке appData, SpecialFolder - перечсиление содержащее системные пути к папкам
