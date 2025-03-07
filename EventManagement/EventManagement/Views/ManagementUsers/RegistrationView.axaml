@@ -10,8 +10,9 @@
 
 	<UserControl.Resources>
 		<conv:MaskNumberConverter x:Key="convertPhone"/>
+		<conv:BoolToPasswordCharConverter x:Key="convertPassword"/>
+		<conv:ConvertMessageToColorConverter x:Key="convertMessageToColor"/>
 	</UserControl.Resources>
-	
 	
 
 	<UserControl.Styles>
@@ -28,6 +29,22 @@
 			<Setter Property="Background" Value="#207cc4"/>
 		</Style>
 
+		
+		<Style Selector="Button.Image">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="16"/>
+		</Style>
+		<Style Selector="Button.Image:pointerover/template/ContentPresenter">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderBrush" Value="#45adff"/>
+			<Setter Property="BorderThickness" Value="3"/>
+		</Style>
+		
+		
 
 		<!--TextBox-->
 		<Style Selector="TextBox">
@@ -185,24 +202,44 @@
 			</StackPanel>
 
 			<StackPanel Grid.Column="1" Spacing="20">
+				
+				<!--Выбор картинки-->
+				<Border Background="#343d46" Width="200" Height="200" HorizontalAlignment="Right" CornerRadius="8">
+					<Grid Width="200" Height="200">
+						<Image Source="{Binding SelectedImage}" Width="200" Height="200" Stretch="UniformToFill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+						<Button Background="Transparent" Command="{Binding SelectImageAsync}" Width="200" Height="200" Classes="Image"/>
+					</Grid>				
+				</Border>
+				
 				<!--Пароль-->
 				<Grid ColumnDefinitions="150,200">
 					<TextBlock Text="Пароль: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-					<TextBox Text="{Binding Password}" Grid.Column="1"/>
+					<TextBox Text="{Binding Password}" Grid.Column="1"
+							  PasswordChar="{Binding IsChecked, Converter={StaticResource convertPassword}}"/>
 				</Grid>
 
 				<!--Повтор пароля-->
 				<Grid ColumnDefinitions="150,200">
 					<TextBlock Text="Повтор пароля: " FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-					<TextBox Text="{Binding RePassword}" Grid.Column="1"/>
+					<TextBox Text="{Binding RePassword}" Grid.Column="1" 
+							 PasswordChar="{Binding IsChecked, Converter={StaticResource convertPassword}}"/>
 				</Grid>
 
 				<!--Галочка на видимость пароля-->
 				<Grid ColumnDefinitions="150,200">
-					<CheckBox HorizontalAlignment="Right" Classes="personal"/>
-					<TextBlock Text="Видимый пароль" FontSize="18" VerticalAlignment="Center"  Margin="10,0,0,0" Grid.Column="1"/>					
+					<CheckBox HorizontalAlignment="Right" Classes="personal" IsChecked="{Binding IsChecked}"/>
+					<TextBlock Text="Видимый пароль" FontSize="18" VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1"/>					
 				</Grid>
-			</StackPanel>
+				
+				<!--Да-да, нет-нет-->
+				<StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+					<Button Command="{Binding SaveData}" Content="Ок" Width="80" Height="40" HotKey="Enter"/>
+					<Button Command="{Binding GoToUserView}" Content="Отмена" Width="80" Height="40" HotKey="Escape"/>
+				</StackPanel>
+				
+				<TextBlock Text="{Binding Message}" Foreground="{Binding Message, Converter={StaticResource convertMessageToColor}}" 
+						   TextWrapping="Wrap" Width="180" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+			</StackPanel>			
 		</StackPanel>
 		
 	</Grid>

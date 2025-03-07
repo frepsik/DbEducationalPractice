@@ -11,7 +11,7 @@ namespace EventManagement.Models.Resources
         {
             if (value is string message)
             {
-                if (message == "Запись успешно обновлена")
+                if (message == "Запись успешно обновлена" || message == "Данные успешно добавлены")
                 {
                     return new SolidColorBrush(Color.Parse("#45adff"));
                 }
