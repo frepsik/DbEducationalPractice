@@ -45,12 +45,12 @@
 
 			<Grid ColumnDefinitions="0.1*, *">
 				<Button Command="{Binding GoToUserView}" Background="#45adff" Grid.Column="0"
-						Content="Button" Foreground="White" FontSize="18"
+						Content="Назад" Foreground="White" FontSize="18"
 						CornerRadius="8"
 						Width="135" Height="40"
 						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
 						HotKey="Escape"/>
-				<TextBlock Text="Title" FontWeight="Medium" FontSize="30" Grid.Column="1"
+				<TextBlock Text="Жюри" FontWeight="Medium" FontSize="30" Grid.Column="1"
 					   HorizontalAlignment="Center" VerticalAlignment="Center"/>
 			</Grid>
 		</Border>
