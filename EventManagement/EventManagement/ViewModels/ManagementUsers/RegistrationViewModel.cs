@@ -147,6 +147,20 @@ namespace EventManagement.ViewModels.ManagementUsers
 
         bool CheckPasswords() => Password == RePassword;
 
+        /// <summary>
+        /// Проверка на корректность шаблона почты
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        bool IsEmailValid()
+        {
+            // Регулярное выражение для проверки email
+            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            return Regex.IsMatch(Email, emailPattern);
+        }
+
+
         public void SaveData()
         {
             if (!string.IsNullOrEmpty(Message))
@@ -169,6 +183,12 @@ namespace EventManagement.ViewModels.ManagementUsers
             else if (!IsPasswordValid())
             {
                 Message = "Пароль не соответствует требованиям";
+                return;
+            }
+            else if (!IsEmailValid())
+            {
+                Message = "Ввдено некорректное значение почты";
+                return;
             }
             else
             {
